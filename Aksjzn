@@ -1,0 +1,212 @@
+--// IO HUB GUI
+--// By ChatGPT (ตามสเปคมึงทุกจุด)
+
+local Players = game:GetService("Players")
+local UIS = game:GetService("UserInputService")
+local player = Players.LocalPlayer
+
+-- UI
+local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
+ScreenGui.Name = "IO_HUB"
+
+-- ปุ่มเปิดตอนปิด
+local OpenBtn = Instance.new("ImageButton", ScreenGui)
+OpenBtn.Size = UDim2.new(0,60,0,60)
+OpenBtn.Position = UDim2.new(0,20,0.5,-30)
+OpenBtn.Image = "rbxassetid://130678370021345"
+OpenBtn.BackgroundTransparency = 1
+OpenBtn.Visible = false
+
+-- Main Frame
+local Main = Instance.new("Frame", ScreenGui)
+Main.Size = UDim2.new(0,520,0,360)
+Main.Position = UDim2.new(0.5,-260,0.5,-180)
+Main.BackgroundColor3 = Color3.fromRGB(20,20,20)
+Main.BorderSizePixel = 0
+Main.Active = true
+Main.Draggable = false
+
+-- Glow
+local UIStroke = Instance.new("UIStroke", Main)
+UIStroke.Color = Color3.fromRGB(170,0,255)
+UIStroke.Thickness = 2
+
+local UICorner = Instance.new("UICorner", Main)
+UICorner.CornerRadius = UDim.new(0,14)
+
+-- Top Bar
+local Top = Instance.new("TextLabel", Main)
+Top.Size = UDim2.new(1,0,0,40)
+Top.BackgroundTransparency = 1
+Top.Text = "🔥 IO HUB 🔥"
+Top.TextColor3 = Color3.fromRGB(200,120,255)
+Top.Font = Enum.Font.GothamBold
+Top.TextSize = 18
+
+-- Tabs
+local TabBtn1 = Instance.new("TextButton", Main)
+TabBtn1.Size = UDim2.new(0,120,0,30)
+TabBtn1.Position = UDim2.new(0,10,0,50)
+TabBtn1.Text = "Function"
+
+local TabBtn2 = Instance.new("TextButton", Main)
+TabBtn2.Size = UDim2.new(0,120,0,30)
+TabBtn2.Position = UDim2.new(0,140,0,50)
+TabBtn2.Text = "Setting"
+
+for _,b in pairs({TabBtn1,TabBtn2}) do
+	b.BackgroundColor3 = Color3.fromRGB(40,40,40)
+	b.TextColor3 = Color3.new(1,1,1)
+	b.Font = Enum.Font.GothamBold
+	b.TextSize = 14
+	Instance.new("UICorner", b)
+end
+
+-- Scrolling Frames
+local FuncPage = Instance.new("ScrollingFrame", Main)
+FuncPage.Size = UDim2.new(1,-20,1,-100)
+FuncPage.Position = UDim2.new(0,10,0,90)
+FuncPage.CanvasSize = UDim2.new(0,0,0,800)
+FuncPage.ScrollBarImageTransparency = 0.4
+
+local SetPage = FuncPage:Clone()
+SetPage.Parent = Main
+SetPage.Visible = false
+SetPage.CanvasSize = UDim2.new(0,0,0,400)
+
+-- UIList
+local function List(parent)
+	local l = Instance.new("UIListLayout", parent)
+	l.Padding = UDim.new(0,8)
+end
+
+List(FuncPage)
+List(SetPage)
+
+-- Function creator
+local function Button(text, callback)
+	local b = Instance.new("TextButton", FuncPage)
+	b.Size = UDim2.new(1,0,0,40)
+	b.Text = text
+	b.BackgroundColor3 = Color3.fromRGB(35,35,35)
+	b.TextColor3 = Color3.new(1,1,1)
+	b.Font = Enum.Font.Gotham
+	b.TextSize = 14
+	Instance.new("UICorner", b)
+	b.MouseButton1Click:Connect(callback)
+end
+
+local function Box(text, callback)
+	local f = Instance.new("Frame", FuncPage)
+	f.Size = UDim2.new(1,0,0,40)
+	f.BackgroundColor3 = Color3.fromRGB(35,35,35)
+	Instance.new("UICorner", f)
+
+	local t = Instance.new("TextBox", f)
+	t.Size = UDim2.new(1,-10,1,-10)
+	t.Position = UDim2.new(0,5,0,5)
+	t.PlaceholderText = text
+	t.BackgroundTransparency = 1
+	t.TextColor3 = Color3.new(1,1,1)
+	t.FocusLost:Connect(function()
+		callback(tonumber(t.Text))
+	end)
+end
+
+-- FUNCTIONS
+Box("ปรับความเร็ว 1-1000", function(v)
+	if v then
+		player.Character.Humanoid.WalkSpeed = v
+	end
+end)
+
+Box("ปรับกระโดด 1-1000", function(v)
+	if v then
+		player.Character.Humanoid.JumpPower = v
+	end
+end)
+
+Button("Noclip", function()
+	loadstring(game:HttpGet("https://pastebin.com/raw/K5FYvtvN"))()
+end)
+
+Button("วาปแบบกด", function()
+	loadstring(game:HttpGet("https://pastebin.com/raw/K5FYvtvN"))()
+end)
+
+Button("บิน", function()
+	loadstring(game:HttpGet("https://pastebin.com/raw/iUVERBrs"))()
+end)
+
+Button("ESP", function()
+	loadstring(game:HttpGet("https://pastebin.com/raw/ZkLhNuDL"))()
+end)
+
+Button("Hitbox", function()
+	loadstring(game:HttpGet("https://pastebin.com/raw/iRyTtfmf"))()
+end)
+
+Button("ลองกด", function()
+	loadstring(game:HttpGet("https://pastebin.com/raw/7Qab6kg9"))()
+end)
+
+Button("ล็อก", function()
+	loadstring(game:HttpGet("https://pastebin.com/raw/W46s2cTh"))()
+end)
+
+Button("เสกของ", function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/yofriendfromschool1/Sky-Hub-Backup/main/gametoolgiver.lua"))()
+end)
+
+Button("บูส FPS", function()
+	loadstring(game:HttpGet("https://pastebin.com/raw/mXhbHDVk"))()
+end)
+
+Button("❌ ปิด Script", function()
+	ScreenGui:Destroy()
+end)
+
+-- SETTINGS
+local function Slider(text, min, max, callback)
+	local b = Instance.new("TextButton", SetPage)
+	b.Size = UDim2.new(1,0,0,40)
+	b.Text = text
+	b.BackgroundColor3 = Color3.fromRGB(35,35,35)
+	b.TextColor3 = Color3.new(1,1,1)
+	Instance.new("UICorner", b)
+	b.MouseButton1Click:Connect(function()
+		callback(math.random(min,max))
+	end)
+end
+
+Slider("สุ่มสี GUI",0,255,function()
+	UIStroke.Color = Color3.fromRGB(math.random(0,255),0,255)
+end)
+
+Slider("ปรับขนาด GUI",300,700,function(v)
+	Main.Size = UDim2.new(0,v,0,v/1.4)
+end)
+
+-- Tabs logic
+TabBtn1.MouseButton1Click:Connect(function()
+	FuncPage.Visible = true
+	SetPage.Visible = false
+end)
+
+TabBtn2.MouseButton1Click:Connect(function()
+	FuncPage.Visible = false
+	SetPage.Visible = true
+end)
+
+-- Close/Open
+Top.InputBegan:Connect(function(i)
+	if i.KeyCode == Enum.KeyCode.RightShift then
+		Main.Visible = not Main.Visible
+		OpenBtn.Visible = not Main.Visible
+	end
+end)
+
+OpenBtn.MouseButton1Click:Connect(function()
+	Main.Visible = true
+	OpenBtn.Visible = false
+end)
