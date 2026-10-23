@@ -1,0 +1,69 @@
+local Players = game:GetService("Players")
+local UIS = game:GetService("UserInputService")
+local Player = Players.LocalPlayer
+pcall(function()
+game.CoreGui.FOVGUI:Destroy()
+end)
+-- Drawing Circle
+local Circle = Drawing.new("Circle")
+Circle.Visible = true
+Circle.Color = Color3.fromRGB(255,0,0)
+Circle.Thickness = 2
+Circle.NumSides = 100
+Circle.Filled = false
+Circle.Radius = 150
+game:GetService("RunService").RenderStepped:Connect(function()
+local vp = workspace.CurrentCamera.ViewportSize
+Circle.Position = Vector2.new(vp.X/2,vp.Y/2)
+end)
+-- GUI
+local Gui = Instance.new("ScreenGui")
+Gui.Name = "FOVGUI"
+Gui.ResetOnSpawn = false
+Gui.Parent = game.CoreGui
+local Frame = Instance.new("Frame",Gui)
+Frame.Size = UDim2.new(0,220,0,120)
+Frame.Position = UDim2.new(0.35,0,0.3,0)
+Frame.BackgroundColor3 = Color3.fromRGB(35,35,35)
+Frame.Active = true
+Instance.new("UICorner",Frame).CornerRadius = UDim.new(0,10)
+local Title = Instance.new("TextLabel",Frame)
+Title.Size = UDim2.new(1,0,0,30)
+Title.BackgroundTransparency = 1
+Title.Text = "FOV MENU"
+Title.TextColor3 = Color3.new(1,1,1)
+Title.Font = Enum.Font.GothamBold
+Title.TextScaled = true
+local Box = Instance.new("TextBox",Frame)
+Box.Size = UDim2.new(0.8,0,0,35)
+Box.Position = UDim2.new(0.1,0,0.45,0)
+Box.PlaceholderText = "Nhập bán kính (VD:150)"
+Box.Text = "150"
+Box.TextScaled = true
+Box.BackgroundColor3 = Color3.fromRGB(50,50,50)
+Box.TextColor3 = Color3.new(1,1,1)
+Instance.new("UICorner",Box)
+local Btn = Instance.new("TextButton",Frame)
+Btn.Size = UDim2.new(0.8,0,0,30)
+Btn.Position = UDim2.new(0.1,0,0.78,0)
+Btn.Text = "Áp dụng"
+Btn.TextScaled = true
+Btn.BackgroundColor3 = Color3.fromRGB(0,170,255)
+Btn.TextColor3 = Color3.new(1,1,1)
+Instance.new("UICorner",Btn)
+Btn.MouseButton1Click:Connect(function()
+local n = tonumber(Box.Text)
+if n then
+Circle.Radius = math.clamp(n,10,1000)
+end
+end)
+-- Drag
+local dragging=false
+local dragInput,startPos,startFrame
+Frame.InputBegan:Connect(function(input)
+if input.UserInputType==Enum.UserInputType.MouseButton1 or input.UserInputType==Enum.UserInputType.Touch then
+dragging=true
+startPos=input.Position
+startFrame=Frame.Position
+input.Changed:Connect(function()
+if inpu
